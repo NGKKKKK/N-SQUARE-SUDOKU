@@ -1,6 +1,6 @@
 from pysat.solvers import Solver
 import math
-import pairwise_amo
+from amo import pairwise_amo
 
 def encode(literals: list, current_id: int = None) -> list:
     size = len(literals)

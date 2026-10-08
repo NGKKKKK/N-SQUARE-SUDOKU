@@ -1,9 +1,9 @@
 from pysat.solvers import Solver
-import pairwise_amo, sequential_amo
+from amo import pairwise_amo, sequential_amo
 
 
 # Solve n-queens problem
-def solve_n_queens(board: list, n: int, type_amo=pairwise_amo, name_amo='Pairwise') -> None:
+def solve_n_queens(board: list, n: int, type_amo, name_amo: str, name_solver: str) -> None:
     # Initialization
     clauses = []
     current_id = n * n
@@ -52,7 +52,7 @@ def solve_n_queens(board: list, n: int, type_amo=pairwise_amo, name_amo='Pairwis
 
     # Solve
     print(f'Type of AMO: {name_amo}')
-    solver = Solver(name='glucose4')
+    solver = Solver(name=name_solver)
     try:
         for c in clauses:
             solver.add_clause(c)
@@ -79,4 +79,4 @@ if __name__ == '__main__':
     board[0][0] = 1
     board[2][3] = 1
     print(board)
-    solve_n_queens(board, n, sequential_amo, name_amo='Sequential')
+    solve_n_queens(board, n, sequential_amo, name_amo='Sequential', name_solver='glucose4')

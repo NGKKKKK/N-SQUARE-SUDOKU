@@ -1,36 +1,26 @@
 from pysat.solvers import Solver
-import pairwise_amo
+from amo import pairwise_amo
 
 def encode(literals: list, current_id: int = None) -> list:
-    group_size = 3
     size = len(literals)
     if size <= 1:
         return [[], [], current_id if current_id is not None else 0]
-    groups = []
-    current = []
-    count = 0
-    for i in range(size):
-        if count > group_size:
-            count = 0
-            groups.append(current)
-            current = [literals[i]]
-        else:
-            current.append(literals[i])
-            count += 1
-    if current is not None:
-        groups.append(current)
     if current_id is None:
-        current_id = max(literals) if size > 1 else 0
+        current_id = max(literals)
+    group_size = 3
+    groups = [literals[i:i + group_size] for i in range(0, size, group_size)]
     au_literals = [current_id + i for i in range(1, len(groups)+1)]
     new_id = current_id + len(groups)
-    clauses = pairwise_amo.encode(au_literals)[0]
+    clauses = []
     for g in groups:
         clauses.extend(pairwise_amo.encode(g)[0])
-    for i in range(len(groups)):
-        for x in groups[i]:
+    for i,g in enumerate(groups):
+        for x in g:
             clauses.append([-x, au_literals[i]])
-        clauses.append([-au_literals[i]] + groups[i])
-    return [clauses, au_literals, new_id]
+        clauses.append([-au_literals[i]] + g)
+    sub_clauses, sub_au, new_id = encode(au_literals, new_id)
+    clauses.extend(sub_clauses)
+    return [clauses, au_literals + sub_au, new_id]
 
 def solve(model_name: str, literals: list, group_size: int) -> None:
     clauses, au_literals, new_id = encode(literals)

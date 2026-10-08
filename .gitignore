@@ -4,3 +4,10 @@ venv/
 __pycache__/
 *.pyc
 .env
+lom.py
+alk
+amk
+data/n_queens_data
+data/n_square_sudoku_data_test
+problems/test.py
+problems/n_queens.py

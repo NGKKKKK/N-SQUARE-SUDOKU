@@ -5,15 +5,16 @@ def encode(literals: list, current_id: int = None) -> list:
     if size <= 1:
         return [[], [], current_id if current_id is not None else 0]
     if current_id is None:
-        current_id = max(literals) if size > 1 else 0
-    au_literals = [current_id + i for i in range(1, size+1)]
-    new_id = current_id + size
+        current_id = max(literals)
+    au_literals = [current_id + i for i in range(1, size)]
+    new_id = current_id + size - 1
     clauses = []
-    for i in range(1, size):
-        clauses.append([-au_literals[i-1], au_literals[i]])
-        clauses.append([-au_literals[i-1], -literals[i]])
-    for i in range(size):
+    for i in range(size-1):
         clauses.append([-literals[i], au_literals[i]])
+    for i in range(1, size-1):
+        clauses.append([-au_literals[i-1], au_literals[i]])
+    for i in range(1, size):
+        clauses.append([-au_literals[i-1], -literals[i]])
     return [clauses, au_literals, new_id]
 
 def solve(model_name: str, literals: list) -> None:
