@@ -165,10 +165,10 @@ def write_sudoku_stat(data_folder: str, filename: str, solvers: list, amo_scheme
 
 if __name__ == "__main__":
     # solo = 'n_square_sudoku_data/S'
-    # write_sudoku_stat(solo, 'result.csv', solvers_solo, schemes_solo)
+    # write_sudoku_stat(solo, 'result_sat_s.csv', solvers_solo, schemes_solo)
     #
     # fight = 'n_square_sudoku_data/M'
-    # write_sudoku_stat(fight, 'result_fight.csv', solvers_fight, schemes_fight)
+    # write_sudoku_stat(fight, 'result_sat_m.csv', solvers_fight, schemes_fight)
 
     final = 'n_square_sudoku_data/L'
-    write_sudoku_stat(final, 'result_final.csv', solvers_final, schemes_final)
+    write_sudoku_stat(final, 'result_sat_l.csv', solvers_final, schemes_final)

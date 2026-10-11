@@ -211,8 +211,8 @@ def write_sudoku_stat(data_folder: str, filename: str, solvers: list) -> None:
 
 if __name__ == "__main__":
     # fight = 'n_square_sudoku_data/M'
-    # write_sudoku_stat(fight, 'result_fight_2.csv', solvers_fight)
+    # write_sudoku_stat(fight, 'result_other_m.csv', solvers_fight)
 
     final = 'n_square_sudoku_data/L'
-    write_sudoku_stat(final, 'result_final_2.csv', solvers_final)
+    write_sudoku_stat(final, 'result_ortools_l.csv', solvers_final)
 
