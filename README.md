@@ -76,4 +76,4 @@ Results are written as CSV to `data/`. Each row is one run (puzzle × solver) wi
 
 ## Author
 
-Nguyen Duc Khiem - Faculty of Information Technology, VNU University of Engineering and Technology, Ha Noi, Viet Nam - nguyenkhiem1812.206@gmail.com.
+Nguyen Duc Khiem - FIT, VNU-UET - nguyenkhiem1812.206@gmail.com.
