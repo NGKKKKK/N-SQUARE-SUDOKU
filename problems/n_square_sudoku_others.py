@@ -1,7 +1,6 @@
 import os
 import time
 import csv
-from typing import List
 
 from docplex.mp.model import Model as MipModel
 from docplex.cp.model import CpoModel
@@ -42,7 +41,6 @@ def solve_cplex_mip(grid: list, n: int) -> dict:
     return {
         'result': 'SAT' if sol else 'UNSAT',
         'solving_time_ms': round((t_end - t_start) * 1000, 4),
-        'num_vars': size ** 3
     }
 
 def solve_cplex_cp(grid: list, n: int) -> dict:
@@ -73,7 +71,6 @@ def solve_cplex_cp(grid: list, n: int) -> dict:
     return {
         'result': 'SAT' if sol else 'UNSAT',
         'solving_time_ms': round((t_end - t_start) * 1000, 4),
-        'num_vars': size ** 2
     }
 
 def solve_gurobi_mip(grid: list, n: int) -> dict:
@@ -116,7 +113,6 @@ def solve_gurobi_mip(grid: list, n: int) -> dict:
     return {
         'result': res,
         'solving_time_ms': round((t_end - t_start) * 1000, 4),
-        'num_vars': size ** 3
     }
 
 def solve_ortools_cpsat(grid: list, n: int) -> dict:
@@ -154,11 +150,10 @@ def solve_ortools_cpsat(grid: list, n: int) -> dict:
     return {
         'result': res,
         'solving_time_ms': round((t_end - t_start) * 1000, 4),
-        'num_vars': size ** 2
     }
 
 def read_sudoku_data(data_folder: str, filename: str) -> tuple:
-    filepath = os.path.join("..", "data", data_folder, filename)
+    filepath = os.path.join("data", data_folder, filename)
     with open(filepath, 'r', encoding='utf-8') as f:
         lines = [line.strip() for line in f if line.strip()]
     n = int(lines[0])
@@ -179,8 +174,8 @@ def write_sudoku_stat(data_folder: str, filename: str, solvers: list) -> None:
     fieldnames = ['test_id', 'grid_size', 'n', 'solver_name',
                   'num_vars', 'result', 'solving_time_ms']
 
-    filepath = os.path.join("..", "data", filename)
-    data_dir = os.path.join("..", "data", data_folder)
+    filepath = os.path.join("data", filename)
+    data_dir = os.path.join("data", data_folder)
     all_files = sorted(f for f in os.listdir(data_dir) if f.endswith('.txt'))
 
     with open(filepath, 'a', newline='', encoding='utf-8') as f:
@@ -201,7 +196,6 @@ def write_sudoku_stat(data_folder: str, filename: str, solvers: list) -> None:
                                      'grid_size': f'{n * n}x{n * n}',
                                      'n': n,
                                      'solver_name': solver_name,
-                                     'num_vars': row['num_vars'],
                                      'result': row['result'],
                                      'solving_time_ms': row['solving_time_ms']})
                     f.flush()
@@ -210,8 +204,8 @@ def write_sudoku_stat(data_folder: str, filename: str, solvers: list) -> None:
 
 
 if __name__ == "__main__":
-    # fight = 'n_square_sudoku_data/M'
-    # write_sudoku_stat(fight, 'result_other_m.csv', solvers_fight)
+    fight = 'n_square_sudoku_data/M'
+    write_sudoku_stat(fight, 'result_other_m.csv', solvers_fight)
 
     final = 'n_square_sudoku_data/L'
     write_sudoku_stat(final, 'result_ortools_l.csv', solvers_final)

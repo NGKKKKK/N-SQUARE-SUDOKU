@@ -95,7 +95,7 @@ def solve_sudoku(grid: list, n: int, type_amo, name_solver: str) -> dict | None:
     return st
 
 def read_sudoku_data(data_folder: str, filename: str) -> tuple:
-    filepath = os.path.join("..", "data", data_foler, filename)
+    filepath = os.path.join("data", data_folder, filename)
     with open(filepath, 'r', encoding='utf-8') as f:
         lines = [line.strip() for line in f if line.strip()]
     n = int(lines[0])
@@ -130,8 +130,8 @@ def write_sudoku_stat(data_folder: str, filename: str, solvers: list, amo_scheme
                   'amo_scheme', 'solver_name', 'num_vars', 'num_aux_vars',
                   'num_clauses', 'result', 'solving_time_ms']
 
-    filepath = os.path.join("..", "data", filename)
-    data_dir = os.path.join("..", "data", data_folder)
+    filepath = os.path.join("data", filename)
+    data_dir = os.path.join("data", data_folder)
     all_files = sorted(f for f in os.listdir(data_dir) if f.endswith('.txt'))
 
     with open(filepath, 'a', newline='', encoding='utf-8') as f:
@@ -164,11 +164,11 @@ def write_sudoku_stat(data_folder: str, filename: str, solvers: list, amo_scheme
                         print(f"Error at file: {fname} with {solver_name}: {e}")
 
 if __name__ == "__main__":
-    # solo = 'n_square_sudoku_data/S'
-    # write_sudoku_stat(solo, 'result_sat_s.csv', solvers_solo, schemes_solo)
-    #
-    # fight = 'n_square_sudoku_data/M'
-    # write_sudoku_stat(fight, 'result_sat_m.csv', solvers_fight, schemes_fight)
+    solo = 'n_square_sudoku_data/S'
+    write_sudoku_stat(solo, 'result_sat_s.csv', solvers_solo, schemes_solo)
+
+    fight = 'n_square_sudoku_data/M'
+    write_sudoku_stat(fight, 'result_sat_m.csv', solvers_fight, schemes_fight)
 
     final = 'n_square_sudoku_data/L'
     write_sudoku_stat(final, 'result_sat_l.csv', solvers_final, schemes_final)
