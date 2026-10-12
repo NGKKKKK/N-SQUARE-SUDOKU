@@ -88,6 +88,7 @@ def solve_sudoku(grid: list, n: int, type_amo, name_solver: str) -> dict | None:
             result = 'UNSAT'
     except Exception as e:
         print(f'Error: {e}')
+        result = 'ERROR'
     finally:
         if solver is not None:
             solver.delete()
